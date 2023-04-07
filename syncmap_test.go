@@ -23,17 +23,9 @@ func TestSyncMap(t *testing.T) {
 
 	m.Store("foo", 7)
 	require.Equal(t, 7, total())
-	m.Store("bar", 8)
-	require.Equal(t, 15, total())
-
-	p, ok := m.Swap("bar", 10)
-	assert.True(t, ok)
-	assert.Equal(t, 8, p)
+	m.Store("bar", 10)
 	require.Equal(t, 17, total())
-
-	p, ok = m.Swap("baz", -5)
-	assert.False(t, ok)
-	assert.Equal(t, 0, p)
+	m.Store("baz", -5)
 	require.Equal(t, 12, total())
 
 	v, ok := m.LoadOrStore("baz", 5)

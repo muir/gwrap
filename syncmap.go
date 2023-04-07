@@ -48,13 +48,3 @@ func (m *SyncMap[K, V]) Range(f func(key K, value V) bool) {
 func (m *SyncMap[K, V]) Store(key K, value V) {
 	m.Map.Store(key, value)
 }
-
-func (m *SyncMap[K, V]) Swap(key K, value V) (previous V, loaded bool) {
-	var v any
-	v, loaded = m.Map.Swap(key, value)
-	if loaded {
-		return v.(V), true
-	}
-	var zero V
-	return zero, false
-}
