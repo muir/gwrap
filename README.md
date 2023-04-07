@@ -17,6 +17,9 @@ support generics directly.  Until then, there is this.
 
 ## SyncMap
 
-SyncMap is a wrapper around sync.Map
+SyncMap is a wrapper around sync.Map supporting the go 1.18 sync.Map
 
+## CompareMap
 
+CompareMap is a wrapper around sync.Map supporting the go 1.20 sync.Map. CompareMap is
+only available when compiling with go 1.20 and above.
