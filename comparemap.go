@@ -15,6 +15,7 @@ func (m *CompareMap[K, V]) CompareAndSwap(key K, old V, new V) bool {
 	return m.Map.CompareAndSwap(key, old, new)
 }
 
+// Swap is only available with go 1.20 and above
 func (m *SyncMap[K, V]) Swap(key K, value V) (previous V, loaded bool) {
 	var v any
 	v, loaded = m.Map.Swap(key, value)
