@@ -11,6 +11,10 @@ import (
 func TestAtomicValue(t *testing.T) {
 	var i gwrap.AtomicValue[int]
 	var sp gwrap.AtomicValue[*string]
+	var ss gwrap.AtomicValue[[]string]
+
+	ss.Store([]string{"a", "b"})
+	assert.Equal(t, []string{"a", "b"}, ss.Load())
 
 	assert.Equal(t, int(0), i.Load())
 	assert.Equal(t, (*string)(nil), sp.Load())

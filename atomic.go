@@ -2,16 +2,18 @@ package gwrap
 
 import "sync/atomic"
 
-// Atomic value is a wrapper around [sync/atomic.Value].
-// AtomicValues should not be copied after first use
-type AtomicValue[T comparable] struct {
-	atomic.Value
-}
+type AtomicComparable[T comparable] AtomicValue[T]
 
 // CompareAndSwap exchanges values if the current value matches the passed
 // in old value.
-func (av *AtomicValue[T]) CompareAndSwap(old T, new T) (swapped bool) {
+func (av *AtomicComparable[T]) CompareAndSwap(old T, new T) (swapped bool) {
 	return av.Value.CompareAndSwap(old, new)
+}
+
+// Atomic value is a wrapper around [sync/atomic.Value].
+// AtomicValues should not be copied after first use
+type AtomicValue[T any] struct {
+	atomic.Value
 }
 
 // Load fetches a value
