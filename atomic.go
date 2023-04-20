@@ -2,7 +2,7 @@ package gwrap
 
 import "sync/atomic"
 
-// Atomic value is a wrapper around [atomic.Value].
+// Atomic value is a wrapper around [sync/atomic.Value].
 // AtomicValues should not be copied after first use
 type AtomicValue[T comparable] struct {
 	atomic.Value
@@ -31,7 +31,7 @@ func (av *AtomicValue[T]) Store(v T) {
 
 // Swap exchanges a value for the current value. If there is
 // no current value, the zero value of T is returned. Unlike
-// [atomic.Value_Swap], the nil value is allowed if T is a
+// [sync/atomic.Value_Swap], the nil value is allowed if T is a
 // pointer type.
 func (av *AtomicValue[T]) Swap(new T) T {
 	v := av.Value.Swap(new)
