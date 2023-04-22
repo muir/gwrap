@@ -1,4 +1,4 @@
-# list - golang generic wrappers for standard library functions
+# gwrap - golang generic wrappers for standard library functions
 
 [![GoDoc](https://godoc.org/github.com/muir/gwrap?status.png)](https://pkg.go.dev/github.com/muir/gwrap)
 ![unit tests](https://github.com/muir/gwrap/actions/workflows/go.yml/badge.svg)
@@ -23,3 +23,7 @@ SyncMap is a wrapper around sync.Map supporting the go 1.18 sync.Map
 
 CompareMap is a wrapper around sync.Map supporting the go 1.20 sync.Map. CompareMap is
 only available when compiling with go 1.20 and above.
+
+## AtomicValue
+
+AtomicValue is a wrapper around sync/atomic.Value.
