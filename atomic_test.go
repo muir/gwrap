@@ -9,8 +9,8 @@ import (
 )
 
 func TestAtomicValue(t *testing.T) {
-	var i gwrap.AtomicValue[int]
-	var sp gwrap.AtomicValue[*string]
+	var i gwrap.AtomicComparable[int]
+	var sp gwrap.AtomicComparable[*string]
 	var ss gwrap.AtomicValue[[]string]
 
 	ss.Store([]string{"a", "b"})
