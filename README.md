@@ -27,3 +27,7 @@ only available when compiling with go 1.20 and above.
 ## AtomicValue
 
 AtomicValue is a wrapper around sync/atomic.Value.
+
+## SyncPool
+
+SyncPool is a wrapper for sync.Pool
