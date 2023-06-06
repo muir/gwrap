@@ -31,3 +31,7 @@ AtomicValue is a wrapper around sync/atomic.Value.
 ## SyncPool
 
 SyncPool is a wrapper for sync.Pool
+
+## Heap
+
+Heap is a heap-like wrapper for container/heap
