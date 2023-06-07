@@ -14,6 +14,8 @@ type PQItemEmbed[P constraints.Ordered] struct {
 	index    int // subtract 1 to get actual index so zero is invalid
 }
 
+// PQItem is the interface that items in PriorityQueue must implement.
+// Embedding PQItemEmbed is enough to satisfy the interface.
 type PQItem[P constraints.Ordered] interface {
 	PQItem() *PQItemEmbed[P]
 }

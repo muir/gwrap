@@ -35,3 +35,13 @@ SyncPool is a wrapper for sync.Pool
 ## Heap
 
 Heap is a heap-like wrapper for container/heap
+
+## PriorityQueue
+
+PriorityQueue is a wrapper for container/heap that implements priority queues.
+
+PriorityQueue supports removing arbitrary items from the queue at any point. To
+support that, the items in the queue must implement the `PQItem` interface. The
+simplest way to implement that interface is to embed `PQItemEmbed` in the items
+that will be in the priority queue.
+
