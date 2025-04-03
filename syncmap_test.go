@@ -61,17 +61,6 @@ func TestSyncMap(t *testing.T) {
 	m.Delete("foo")
 	require.Equal(t, 5, total())
 
-	m.Store("abc", 9)
-	assert.False(t, m.CompareAndSwap("abc", 10, 8))
-	v, ok = m.Load("abc")
-	assert.True(t, ok)
-	assert.Equal(t, 9, v)
-	assert.True(t, m.CompareAndSwap("abc", 9, 8))
-	v, ok = m.Load("abc")
-	assert.True(t, ok)
-	assert.Equal(t, 8, v)
-
-	t.Log("now testing invalid values inserted by bypassing the API")
 	m.Map.Store("invalid", "comparable")
 	_, ok = m.Load("invalid")
 	require.False(t, ok)
@@ -108,4 +97,66 @@ func TestSyncMap(t *testing.T) {
 	v, ok = m.Load("invalid")
 	require.True(t, ok)
 	require.Equal(t, 23, v)
+}
+
+func TestCompareMap(t *testing.T) {
+	var m gwrap.CompareMap[string, int]
+
+	total := func() int {
+		var total int
+		m.Range(func(_ string, v int) bool {
+			total += v
+			return true
+		})
+		return total
+	}
+
+	m.Store("foo", 2)
+	require.Equal(t, 2, total())
+	m.Store("bar", 8)
+	require.Equal(t, 10, total())
+
+	ok := m.CompareAndSwap("bar", 11, 100)
+	assert.False(t, ok)
+	require.Equal(t, 10, total())
+
+	ok = m.CompareAndSwap("bar", 8, 98)
+	assert.True(t, ok)
+	require.Equal(t, 100, total())
+
+	ok = m.CompareAndDelete("bar", 99)
+	assert.False(t, ok)
+	require.Equal(t, 100, total())
+
+	ok = m.CompareAndDelete("bar", 98)
+	assert.True(t, ok)
+	require.Equal(t, 2, total())
+}
+
+func TestSwap(t *testing.T) {
+	var m gwrap.SyncMap[string, int]
+
+	total := func() int {
+		var total int
+		m.Range(func(_ string, v int) bool {
+			total += v
+			return true
+		})
+		return total
+	}
+
+	m.Store("foo", 7)
+	require.Equal(t, 7, total())
+	m.Store("bar", 10)
+	require.Equal(t, 17, total())
+
+	p, ok := m.Swap("bar", 8)
+	assert.True(t, ok)
+	assert.Equal(t, 10, p)
+	require.Equal(t, 15, total())
+
+	p, ok = m.Swap("baz", -5)
+	assert.False(t, ok)
+	assert.Equal(t, 0, p)
+	require.Equal(t, 10, total())
 }
